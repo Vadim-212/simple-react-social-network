@@ -1,0 +1,39 @@
+.Chat {
+    width: 600px;
+    min-width: 350px;
+    /* height: 100%; */
+    background-color: blue;
+}
+
+.Chat > .messages-list {
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.Chat > .send-message {
+    display: flex;
+}
+
+.Chat > .send-message > input {
+    width: 95%;
+}
+
+.Message {
+    border-radius: 5px;
+    /* position: relative; */
+    margin-top: 10px;
+}
+
+.sended {
+    background-color: rgb(169, 189, 255);
+    /* left: 100%; */
+    margin-left: 50%;
+}
+
+.received {
+    background-color: rgb(197, 197, 197);
+    margin-right: 50%;
+}
