@@ -1,0 +1,12 @@
+[
+    {
+        "fromUser": "0",
+        "toUser": "1",
+        "text": "hello"
+    },
+    {
+        "fromUser": "2",
+        "toUser": "0",
+        "text": "hi"
+    }
+]
