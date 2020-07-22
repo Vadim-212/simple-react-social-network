@@ -1,14 +1,15 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
+import './Menu.css'
 
 class Menu extends React.Component {
     render() {
         return(
-            <div>
+            <div className="Menu">
                 <ul>
-                    <li><Link to="/profile">Профиль</Link></li>
-                    <li><Link to="/messages">Сообщения</Link></li>
-                    <li><Link to="/chat">тест чата</Link></li>
+                    <li><NavLink className="menu-link" activeClassName="menu-link-active" to="/profile">Профиль</NavLink></li>
+                    <li><NavLink className="menu-link" activeClassName="menu-link-active" to="/messages">Сообщения</NavLink></li>
+                    <li><NavLink className="menu-link" activeClassName="menu-link-active" to="/find">Поиск</NavLink></li>
                 </ul>
             </div>
         )
