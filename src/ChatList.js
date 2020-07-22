@@ -2,17 +2,21 @@ import React from 'react'
 import User from './User'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { fetchUsers } from './model/actions'
+import { fetchUsers, fetchMessages, getMessagesByUserId, loginSuccess } from './model/actions'
+import './ChatList.css'
 
 
 class ChatList extends React.Component {
     constructor(props) {
         super(props)
-        this.setState({ users: [] })
+        this.state = { users: [], messages: [] }
     }
     
     componentDidMount() {
+        this.props.loginUser(0)
         this.props.loadUsers()
+        this.props.loadMessages()
+        this.props.loadMessagesByUserId()
     }
 
     // componentWillReceiveProps(nextProps) {
@@ -21,26 +25,26 @@ class ChatList extends React.Component {
 
     render() {
         return(
-            <div className=".ChatList">
+            <div className="ChatList">
                 <ul>
-                    <li>
-                        <Link to="/chat">
-                            <User user={{name: "User0"}}/>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/chat">
-                            <User user={{name: "User0"}}/>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/chat">
-                            <User user={{name: "User0"}}/>
-                        </Link>
-                    </li>
-                    { this.props.users.map((val, i) => {
+                    {/* { this.props.users.map((val, i) => {
                         return <li key={i}>
                             <Link to="/chat"><User user={val}/></Link>
+                        </li>
+                    }) } */}
+                    { this.props.users.map((val, i) => {
+                        let newArr = this.props.messages.filter((msg) => (msg.fromUser == val.id && msg.toUser == this.props.logged) || (msg.toUser == val.id && msg.fromUser == this.props.logged))
+                        if(newArr.length == 0){
+                            return
+                        }
+                        return <li key={i}>
+                            <Link to={`/chat/${val.id}`}>
+                                <User user={val}/>
+                                <div>
+                                    { (newArr[newArr.length - 1].fromUser == val.id) ? val.name : "Вы" }
+                                : { (newArr[newArr.length - 1].text.length > 35) ? newArr[newArr.length - 1].text.substr(0,35) + "..." : newArr[newArr.length - 1].text}
+                                </div>
+                            </Link>
                         </li>
                     }) }
                 </ul>
@@ -57,6 +61,15 @@ function mapDispatchToProps(dispatch) {
     return {
         loadUsers: () => {
             dispatch(fetchUsers())
+        },
+        loadMessages: () => {
+            dispatch(fetchMessages())
+        },
+        loadMessagesByUserId: (userId) => {
+            dispatch(getMessagesByUserId(userId))
+        },
+        loginUser: (userId) => {
+            dispatch(loginSuccess(userId))
         }
     }
 }

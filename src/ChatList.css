@@ -1,0 +1,36 @@
+.ChatList>ul {
+    list-style-type: none;
+}
+
+.ChatList>ul>li>a {
+    display: inline-block;
+    min-width: 250px;
+    width: 450px;
+    height: 50px;
+    text-decoration: none;
+    color: black;
+    background-color: rgb(215, 216, 236);
+    border-top: 1px solid rgb(202, 202, 202);
+    border-left: 1px solid rgb(202, 202, 202);
+    border-right: 1px solid rgb(202, 202, 202);
+    padding: 5px 0 5px 10px;
+    line-height: 25px;
+
+}
+
+.ChatList>ul>li:last-child>a {
+    border-bottom: 1px solid rgb(202, 202, 202);
+}
+
+.ChatList>ul>li>a:visited {
+    color: black;
+}
+
+.ChatList>ul>li>a>div:nth-child(1) {
+    font-weight: bold;
+}
+
+.ChatList>ul>li>a>div:nth-child(2) {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.61);
+}
