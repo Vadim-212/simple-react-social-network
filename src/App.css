@@ -8,12 +8,6 @@ html, body, #root, .Root, .Menu, .App {
   align-items: stretch;
 }
 
-.Menu {
-  background-color: red;
-  min-width: 150px;
-  width: 15%;
-}
-
 .App {
   text-align: center;
   background-color: blue;

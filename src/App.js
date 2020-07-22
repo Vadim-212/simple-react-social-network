@@ -6,17 +6,19 @@ import UserProfile from './UserProfile';
 import Menu from './Menu'
 import Chat from './Chat';
 import ChatList from './ChatList';
+import FindUsers from './FindUsers'
 
 function App() {
   return (
     <div className="Root">
       <BrowserRouter>
-        <div className="Menu"><Menu /></div>
+          <Menu />
           <div><Switch>
             <Route path="/profile" component={UserProfile}/>
-            <Route path="/chat" component={Chat}/>
+            <Route path="/chat/:userId" component={Chat}/>
             <Route path="/messages" component={ChatList}/>
-            <Route exact path="**" component={Main}/>
+            <Route path="/find" component={FindUsers}/>
+            <Route exact path="**" component={ChatList}/>
           </Switch></div>
       </BrowserRouter>
     </div>
