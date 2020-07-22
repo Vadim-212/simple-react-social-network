@@ -2,12 +2,17 @@ import React from 'react'
 import Message from './Message'
 import './Chat.css'
 import { connect } from 'react-redux'
-import { sendMessage, getMessagesByUserId } from './model/actions'
+import { sendMessage, getMessagesByUserId, getMessagesInChat } from './model/actions'
 
 class Chat extends React.Component {
     constructor(props) {
         super(props)
-        this.setState({ messages: [] })
+        this.state = { 
+            messages: [], 
+            inputValue: '' };
+        this.onInputChange = this.onInputChange.bind(this)
+        this.onInputKeyDown = this.onInputKeyDown.bind(this)
+        this.onButtonClickSendMessage = this.onButtonClickSendMessage.bind(this)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -15,26 +20,54 @@ class Chat extends React.Component {
     }
 
     componentDidMount() {
-        this.props.loadMessages(1)
+        this.props.loadMessages(this.props.match.params.userId, this.props.logged)
     }
 
     render() {
         return(
             <div className="Chat">
                 <div className="messages-list">
-                    <Message messageType="sended" messageText="hello"/>
-                    <Message messageType="received" messageText="hi!"/>
-                    <Message messageType="sended" messageText="i am user 1"/>
-                    <Message messageType="received" messageText="i am user 2"/>
-                    <Message messageType="sended" messageText="and this is test messages"/>
-                    <Message messageType="received" messageText="yes!"/>
+                    { this.props.messages.map((val,i) => {
+                        let messageType = (val.fromUser == this.props.logged) ? "sended" : "received"
+                        return <Message key={i} messageType={messageType} messageText={val.text}/>
+                    }) }
                 </div>
                 <div className="send-message">
-                    <input type="text"/>
-                    <button >{">"}</button>
+                    <input type="text" value={this.state.inputValue} onChange={this.onInputChange} onKeyDown={this.onInputKeyDown}/>
+                    {/* <button onClick={() => {
+                        let message = {
+                            fromUser: this.props.logged,
+                            toUser: this.props.match.params.userId,
+                            text: this.state.inputValue
+                        }
+                        this.props.sendMessage(message)
+                        this.setState({ inputValue: '' })
+                    }}>{">"}</button> */}
+
+                    <button onClick={this.onButtonClickSendMessage}>{">"}</button>
                 </div>
             </div>
         )
+    }
+
+    onInputChange(e) {
+        this.setState({ inputValue: e.target.value })
+    }
+
+    onInputKeyDown(e) {
+        if(e.keyCode == 13) {
+            this.onButtonClickSendMessage()
+        }
+    }
+
+    onButtonClickSendMessage() {
+        let message = {
+            fromUser: this.props.logged,
+            toUser: this.props.match.params.userId,
+            text: this.state.inputValue
+        }
+        this.props.sendMessage(message)
+        this.setState({ inputValue: '' })
     }
 }
 
@@ -44,12 +77,12 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        loadMessages: (userId) => {
-            dispatch(getMessagesByUserId(userId))
+        loadMessages: (firstUserId, secondUserId) => {
+            dispatch(getMessagesInChat(firstUserId, secondUserId))
         },
         sendMessage: (message) => {
             dispatch(sendMessage(message))
-        }
+        },
     }
 }
 
