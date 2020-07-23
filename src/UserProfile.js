@@ -1,10 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { fetchUsers, userEditProfile } from './model/actions'
+import './UserProfile.css'
 
 class UserProfile extends React.Component {
-    //user
-
     constructor(props) {
         super(props)
         this.state = { isEditable: false, user: {} }
@@ -15,15 +14,13 @@ class UserProfile extends React.Component {
     }
 
     componentDidMount() {
-        this.props.loadUsers()
-        this.setState({user:this.getUser()})
+        this.setState({user: this.getUser()})
     }
 
     render() {
-        //this.user = this.getUser()
         return(
             <div className="UserProfile">
-                <ul>
+                <ul id="userprofile-info-list">
                     <li>
                         <span>Идентификатор: </span>
                         <span>{this.state.user.id}</span>
@@ -37,7 +34,7 @@ class UserProfile extends React.Component {
                         { (this.state.isEditable) ? <input id="user-shortname-input" type="text" value={this.state.user.shortName} onChange={this.onInputChange}/> : <span>{this.state.user.shortName}</span> }
                     </li>
                 </ul>
-                { (this.state.isEditable) ? <button onClick={this.saveProfile}>Сохранить</button> : <button onClick={this.editProfile}>Редактировать</button> }
+                { (this.state.isEditable) ? <button className="userprofile-action-button" onClick={this.saveProfile}>Сохранить</button> : <button className="userprofile-action-button" onClick={this.editProfile}>Редактировать</button> }
             </div>
         )
     }

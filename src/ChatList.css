@@ -2,7 +2,7 @@
     list-style-type: none;
 }
 
-.ChatList>ul>li>a {
+#chatlist-list>li>a {
     display: inline-block;
     min-width: 250px;
     width: 450px;
@@ -18,19 +18,19 @@
 
 }
 
-.ChatList>ul>li:last-child>a {
+#chatlist-list>li:last-child>a {
     border-bottom: 1px solid rgb(202, 202, 202);
 }
 
-.ChatList>ul>li>a:visited {
+#chatlist-list>li>a:visited {
     color: black;
 }
 
-.ChatList>ul>li>a>div:nth-child(1) {
+#chatlist-list>li>a>div:nth-child(1) {
     font-weight: bold;
 }
 
-.ChatList>ul>li>a>div:nth-child(2) {
+#chatlist-list>li>a>div:nth-child(2) {
     font-size: 14px;
     color: rgba(0, 0, 0, 0.61);
 }

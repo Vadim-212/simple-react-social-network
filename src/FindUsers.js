@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { fetchUsers } from './model/actions'
 import User from './User'
 import { Link } from 'react-router-dom'
+import './FindUsers.css'
 
 class FindUsers extends React.Component {
     constructor(props) {
@@ -15,15 +16,14 @@ class FindUsers extends React.Component {
         this.onInputChange = this.onInputChange.bind(this)
     }
 
-    componentDidMount() {
-        this.props.loadUsers()
-    }
-
     render() {
         return(
-            <div className="FinsUsers">
-                <input type="text" placeholder="Искать пользователей..." value={this.state.inputValue} onChange={this.onInputChange}/>
-                <ul>
+            <div className="FindUsers">
+                <div>
+                    <input id="findusers-search-input" type="text" placeholder="Искать пользователей..." value={this.state.inputValue} onChange={this.onInputChange}/>
+                    <div id="findusers-search-input-border-div"></div>
+                </div>
+                <ul id="findusers-users-list">
                     { this.state.filteredUsers.map((val, i) => {
                         return <li key={i}>
                             <Link to={`/chat/${val.id}`}>

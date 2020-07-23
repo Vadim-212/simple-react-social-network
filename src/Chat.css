@@ -6,12 +6,19 @@
     min-height: 150px;
 }
 
+.Chat > .User {
+    background-color: white;
+    text-align: center;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
 .Chat > .messages-list {
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    height: 97%;
+    height: 93%;
     
 }
 

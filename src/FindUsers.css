@@ -1,0 +1,68 @@
+.FindUsers {
+    margin: 10px 20px;
+}
+
+#findusers-search-input {
+    border: none;
+    font-size: 20px;
+}
+
+#findusers-search-input-border-div {
+    background-color: red;
+    height: 2px;
+    background-color: rgb(98, 106, 252);
+    margin-top: 2px;
+}
+
+#findusers-search-input:focus + #findusers-search-input-border-div {
+    -webkit-animation: scale-up-hor-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: scale-up-hor-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+
+}
+
+#findusers-users-list {
+    list-style-type: none;
+}
+
+#findusers-users-list>li>a {
+    display: inline-block;
+    color: black;
+    text-decoration: none;
+    border-bottom: 1px solid black;
+    
+    padding: 10px 35px 10px 15px;
+}
+
+#findusers-users-list>li:nth-child(1)>a {
+    border-top: 1px solid black;
+}
+
+#findusers-users-list>li>a:visited {
+    color: black;
+}
+
+#findusers-users-list>li>a:hover {
+    background-color: rgb(215, 216, 236);
+}
+
+ @-webkit-keyframes scale-up-hor-center {
+    0% {
+      -webkit-transform: scaleX(0.4);
+              transform: scaleX(0.4);
+    }
+    100% {
+      -webkit-transform: scaleX(1);
+              transform: scaleX(1);
+    }
+  }
+  @keyframes scale-up-hor-center {
+    0% {
+      -webkit-transform: scaleX(0.4);
+              transform: scaleX(0.4);
+    }
+    100% {
+      -webkit-transform: scaleX(1);
+              transform: scaleX(1);
+    }
+  }
+  
