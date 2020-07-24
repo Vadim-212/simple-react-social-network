@@ -37,12 +37,6 @@ class Chat extends React.Component {
         }
     }
 
-    // componentDidMount() {
-    //     if(this.props.users.length > 0) {
-    //         this.setState({user: this.getUser()})
-    //     }
-    // }
-
     componentDidMount() {
         if(this.props.users.length > 0) {
             this.setState({user: this.getUser()})

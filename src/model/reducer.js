@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { GET_USERS_SUCCESS, SEND_MESSAGE, USER_EDIT_PROFILE, GET_MESSAGES_SUCCESS, GET_MESSAGES_BY_USER_ID, GET_MESSAGES_IN_CHAT, LOGIN_SUCCESS } from './actions'
+import { GET_USERS_SUCCESS, SEND_MESSAGE, USER_EDIT_PROFILE, GET_MESSAGES_SUCCESS, LOGIN_SUCCESS } from './actions'
 
 const initialState = {
     users: [],
@@ -27,24 +27,7 @@ export function messages(state = initialState.messages, action) {
             if(action.message.text.length > 0) {
                 state.push(action.message)
             }
-            // state = [...state, action.message]
             return state
-        case GET_MESSAGES_BY_USER_ID:
-            let messagesByUser = []
-            state.forEach(element => {
-                if(element.fromUser == action.userId || element.toUser == action.userId) {
-                    messagesByUser.push(element)
-                }
-            });
-            return messagesByUser
-        case GET_MESSAGES_IN_CHAT:
-            let messagesInChat = []
-            state.forEach(msg => {
-                if((msg.fromUser == action.firstUserId && msg.toUser == action.secondUserId) || (msg.toUser == action.firstUserId && msg.fromUser == action.secondUserId)) {
-                    messagesInChat.push(msg)
-                }
-            })
-            return messagesInChat
         default:
             return state
     }

@@ -14,9 +14,6 @@ function mapDispatchToProps(dispatch) {
         loadMessages: () => {
             dispatch(fetchMessages())
         },
-        loadMessagesByUserId: (userId) => {
-            dispatch(getMessagesByUserId(userId))
-        },
         loginUser: (userId) => {
             dispatch(loginSuccess(userId))
         }

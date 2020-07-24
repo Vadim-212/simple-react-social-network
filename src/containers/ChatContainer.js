@@ -8,9 +8,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        loadMessages: (firstUserId, secondUserId) => {
-            dispatch(getMessagesInChat(firstUserId, secondUserId))
-        },
         sendMessage: (message) => {
             dispatch(sendMessage(message))
         },
