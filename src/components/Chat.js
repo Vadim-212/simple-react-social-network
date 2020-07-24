@@ -1,17 +1,16 @@
 import React from 'react'
-import Message from './Message'
-import './Chat.css'
-import { connect } from 'react-redux'
-import { sendMessage, getMessagesByUserId, getMessagesInChat } from './model/actions'
-import { messages } from './model/reducer'
-import User from './User'
+import Message from '../components/Message'
+import '../styles/Chat.css'
+import User from '../components/User'
 
 class Chat extends React.Component {
     constructor(props) {
         super(props)
         this.state = { 
             messages: [], 
-            inputValue: '' }
+            inputValue: '',
+            user: { id: this.props.match.params.userId, name: '', shortname: '' }
+         }
 
         this.onInputChange = this.onInputChange.bind(this)
         this.onInputKeyDown = this.onInputKeyDown.bind(this)
@@ -22,20 +21,47 @@ class Chat extends React.Component {
         this.setState({ messages: nextProps.messages })
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(this.props.users !== prevProps.users) {
+            this.setState({user: this.getUser()})
+        }
+        if(this.props.messages !== prevProps.messages) {
+            let messagesInChat = []
+            this.props.messages.forEach(msg => {
+                if((msg.fromUser == this.props.match.params.userId && msg.toUser == this.props.logged) || (msg.toUser == this.props.match.params.userId && msg.fromUser == this.props.logged)) {
+                    messagesInChat.push(msg)
+                }
+            })
+            this.setState({messages: messagesInChat})
+
+        }
+    }
+
+    // componentDidMount() {
+    //     if(this.props.users.length > 0) {
+    //         this.setState({user: this.getUser()})
+    //     }
+    // }
+
     componentDidMount() {
-        let messagesInChat = []
-        this.props.messages.forEach(msg => {
-            if((msg.fromUser == this.props.match.params.userId && msg.toUser == this.props.logged) || (msg.toUser == this.props.match.params.userId && msg.fromUser == this.props.logged)) {
-                messagesInChat.push(msg)
-            }
-        })
-        this.setState({messages: messagesInChat})
+        if(this.props.users.length > 0) {
+            this.setState({user: this.getUser()})
+        }
+        if(this.props.messages.length > 0) {
+            let messagesInChat = []
+            this.props.messages.forEach(msg => {
+                if((msg.fromUser == this.props.match.params.userId && msg.toUser == this.props.logged) || (msg.toUser == this.props.match.params.userId && msg.fromUser == this.props.logged)) {
+                    messagesInChat.push(msg)
+                }
+            })
+            this.setState({messages: messagesInChat})
+        }
     }
 
     render() {
         return(
             <div className="Chat">
-                <User user={this.props.users[this.props.match.params.userId]}/>
+                <User user={this.state.user}/>
                 <div className="messages-list">
                     { this.state.messages.map((val,i) => {
                         let messageType = (val.fromUser == this.props.logged) ? "sended" : "received"
@@ -69,22 +95,10 @@ class Chat extends React.Component {
         this.props.sendMessage(message)
         this.setState({ inputValue: '', messages: [...this.state.messages, message] })
     }
-}
 
-function mapStateToProps(state) {
-    return state
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        loadMessages: (firstUserId, secondUserId) => {
-            dispatch(getMessagesInChat(firstUserId, secondUserId))
-        },
-        sendMessage: (message) => {
-            dispatch(sendMessage(message))
-        },
+    getUser() {
+        return this.props.users.find((user) => user.id == this.props.match.params.userId)
     }
 }
 
-const ChatContainer = connect(mapStateToProps, mapDispatchToProps)(Chat)
-export default ChatContainer
+export default Chat

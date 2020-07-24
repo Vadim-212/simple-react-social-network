@@ -2,11 +2,11 @@
     {
         "fromUser": "0",
         "toUser": "1",
-        "text": "hello"
+        "text": "hello, user1!"
     },
     {
         "fromUser": "2",
         "toUser": "0",
-        "text": "hi"
+        "text": "hi, admin"
     }
 ]

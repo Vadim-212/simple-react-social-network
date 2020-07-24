@@ -1,9 +1,7 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { fetchUsers } from './model/actions'
-import User from './User'
+import User from '../components/User'
 import { Link } from 'react-router-dom'
-import './FindUsers.css'
+import '../styles/FindUsers.css'
 
 class FindUsers extends React.Component {
     constructor(props) {
@@ -47,17 +45,4 @@ class FindUsers extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
-    return state
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        loadUsers: () => {
-            dispatch(fetchUsers())
-        }
-    }
-}
-
-const FindUsersContainer = connect(mapStateToProps, mapDispatchToProps)(FindUsers)
-export default FindUsersContainer
+export default FindUsers

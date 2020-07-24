@@ -1,9 +1,7 @@
 import React from 'react'
-import User from './User'
+import User from '../components/User'
 import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { fetchUsers, fetchMessages, getMessagesByUserId, loginSuccess } from './model/actions'
-import './ChatList.css'
+import '../styles/ChatList.css'
 
 
 class ChatList extends React.Component {
@@ -18,6 +16,7 @@ class ChatList extends React.Component {
                 <ul id="chatlist-list">
                     { this.props.users.map((val, i) => {
                         let newArr = this.props.messages.filter((msg) => (msg.fromUser == val.id && msg.toUser == this.props.logged) || (msg.toUser == val.id && msg.fromUser == this.props.logged))
+                        
                         if(newArr.length == 0){
                             return
                         }
@@ -37,27 +36,4 @@ class ChatList extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
-    return state
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        loadUsers: () => {
-            dispatch(fetchUsers())
-        },
-        loadMessages: () => {
-            dispatch(fetchMessages())
-        },
-        loadMessagesByUserId: (userId) => {
-            dispatch(getMessagesByUserId(userId))
-        },
-        loginUser: (userId) => {
-            dispatch(loginSuccess(userId))
-        }
-    }
-}
-
-const ChatListContainer = connect(mapStateToProps, mapDispatchToProps)(ChatList)
-
-export default ChatListContainer
+export default ChatList

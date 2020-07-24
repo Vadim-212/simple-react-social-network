@@ -1,22 +1,28 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { fetchUsers, userEditProfile } from './model/actions'
-import './UserProfile.css'
+import '../styles/UserProfile.css'
 
 class UserProfile extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { isEditable: false, user: {} }
+        this.state = { isEditable: false, user: { id: -1, name: '', shortName: ''} }
 
         this.editProfile = this.editProfile.bind(this)
         this.onInputChange = this.onInputChange.bind(this)
         this.saveProfile = this.saveProfile.bind(this)
     }
 
-    componentDidMount() {
-        this.setState({user: this.getUser()})
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(this.props.users !== prevProps.users) {
+            this.setState({user: this.getUser()})
+        }
     }
 
+    componentDidMount() {
+        if(this.props.users.length > 0) {
+            this.setState({user: this.getUser()})
+        }
+    }
+    
     render() {
         return(
             <div className="UserProfile">
@@ -68,20 +74,4 @@ class UserProfile extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
-    return state
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        loadUsers: () => {
-            dispatch(fetchUsers())
-        },
-        userEditProfile: (user) => {
-            dispatch(userEditProfile(user))
-        }
-    }
-}
-
-const UserProfileContainer = connect(mapStateToProps, mapDispatchToProps)(UserProfile)
-export default UserProfileContainer
+export default UserProfile
